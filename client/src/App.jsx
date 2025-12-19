@@ -11,6 +11,7 @@ function App() {
   const [selected, setSelected] = useState([])
   const [solvedGroups, setSolvedGroups] = useState([])
   const [transitioningGroup, setTransitioningGroup] = useState(null)
+  const [revealQueue, setRevealQueue] = useState([])
   const [lives, setLives] = useState(4)
   const [gameOver, setGameOver] = useState(false)
   const [message, setMessage] = useState('')
@@ -22,6 +23,16 @@ function App() {
     fetchPuzzle(1)
   }, [])
 
+  // Process reveal queue one at a time
+  useEffect(() => {
+    if (revealQueue.length > 0 && !transitioningGroup) {
+      const [nextGroup, ...remaining] = revealQueue
+      setRevealQueue(remaining)
+      setTransitioningGroup(nextGroup)
+      setItems(prev => prev.filter(item => item.groupId !== nextGroup.name))
+    }
+  }, [revealQueue, transitioningGroup])
+
   const fetchPuzzle = async (index) => {
     try {
       const response = await fetch(`/api/puzzle/${index}`)
@@ -32,6 +43,8 @@ function App() {
       setTotalPuzzles(data.totalPuzzles)
       setSolvedGroups([])
       setSelected([])
+      setRevealQueue([])
+      setTransitioningGroup(null)
       setLives(4)
       setGameOver(false)
       setMessage('')
@@ -96,11 +109,10 @@ function App() {
       if (newLives === 0) {
         setGameOver(true)
         setMessage('Game over!')
-        // Reveal remaining groups (sorted by difficulty, appended after already-solved)
+        // Queue remaining groups for animated reveal (sorted by difficulty)
         const remaining = groups.filter(g => !solvedGroups.find(s => s.name === g.name))
         remaining.sort((a, b) => a.difficulty - b.difficulty)
-        setSolvedGroups([...solvedGroups, ...remaining])
-        setItems([])
+        setRevealQueue(remaining)
       }
 
       setSelected([])
@@ -125,8 +137,8 @@ function App() {
       setSolvedGroups(prev => [...prev, transitioningGroup])
       setTransitioningGroup(null)
 
-      // Check win condition after adding the solved group
-      if (solvedGroups.length === 3) {
+      // Check win condition after adding the solved group (only if not already game over from losing)
+      if (solvedGroups.length === 3 && !gameOver) {
         setGameOver(true)
         setMessage('You won!')
       }
@@ -182,7 +194,7 @@ function App() {
         </button>
       </div>
 
-      {gameOver && (
+      {gameOver && revealQueue.length === 0 && !transitioningGroup && (
         <div className="game-over-buttons">
           <button className="new-game" onClick={handlePlayAgain}>
             Play Again

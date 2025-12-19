@@ -15,12 +15,12 @@ function TransitioningGroup({ group, onComplete }) {
     // Wait for tiles to fly into position, then show the merged result
     const timer = setTimeout(() => {
       setShowResult(true)
-    }, 350)
+    }, 600)
 
     // Complete the transition after showing result
     const completeTimer = setTimeout(() => {
       onComplete()
-    }, 700)
+    }, 1100)
 
     return () => {
       clearTimeout(timer)
@@ -52,7 +52,7 @@ function TransitioningGroup({ group, onComplete }) {
           className="transitioning-tile"
           style={{ backgroundColor: difficultyColors[group.difficulty] }}
           transition={{
-            layout: { type: 'spring', stiffness: 400, damping: 30 },
+            layout: { type: 'spring', stiffness: 200, damping: 25 },
           }}
         >
           {item}
