@@ -12,10 +12,27 @@ app.use(express.json());
 // Serve static files from client build
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// API endpoint to get puzzle
-app.get('/api/puzzle', (req, res) => {
+// Count available puzzles
+const puzzlesDir = path.join(__dirname, 'puzzles');
+const getPuzzleCount = () => {
+  const files = fs.readdirSync(puzzlesDir);
+  return files.filter(f => f.match(/^puzzle\d+\.json$/)).length;
+};
+
+// API endpoint to get puzzle count
+app.get('/api/puzzles/count', (req, res) => {
+  res.json({ count: getPuzzleCount() });
+});
+
+// Helper to load and return puzzle data
+const loadPuzzle = (index, res) => {
   try {
-    const puzzlePath = path.join(__dirname, 'puzzles/puzzle.json');
+    const puzzlePath = path.join(__dirname, `puzzles/puzzle${index}.json`);
+
+    if (!fs.existsSync(puzzlePath)) {
+      return res.status(404).json({ error: 'Puzzle not found' });
+    }
+
     const puzzleData = JSON.parse(fs.readFileSync(puzzlePath, 'utf8'));
 
     // Shuffle the items for the frontend
@@ -34,6 +51,8 @@ app.get('/api/puzzle', (req, res) => {
     }
 
     res.json({
+      puzzleIndex: index,
+      totalPuzzles: getPuzzleCount(),
       items: allItems,
       groups: puzzleData.groups.map(g => ({
         name: g.name,
@@ -45,6 +64,12 @@ app.get('/api/puzzle', (req, res) => {
     console.error('Error loading puzzle:', error);
     res.status(500).json({ error: 'Failed to load puzzle' });
   }
+};
+
+// API endpoint to get puzzle by index
+app.get('/api/puzzle/:index', (req, res) => {
+  const index = parseInt(req.params.index) || 1;
+  loadPuzzle(index, res);
 });
 
 // Serve React app for all other routes

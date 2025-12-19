@@ -216,14 +216,30 @@ button {
   background-color: #333;
 }
 
-.new-game {
+.game-over-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
   margin-top: 20px;
+}
+
+.new-game {
+  background-color: #fff;
+  border: 1px solid #000;
+  color: #000;
+}
+
+.new-game:hover {
+  background-color: #f0f0f0;
+}
+
+.next-puzzle {
   background-color: #000;
   border: 1px solid #000;
   color: #fff;
 }
 
-.new-game:hover {
+.next-puzzle:hover {
   background-color: #333;
 }
 

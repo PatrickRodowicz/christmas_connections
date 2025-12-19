@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "SANTA'S REINDEER",
+      "difficulty": 1,
+      "items": ["DASHER", "DANCER", "PRANCER", "VIXEN"]
+    },
+    {
+      "name": "CHRISTMAS MOVIES",
+      "difficulty": 2,
+      "items": ["ELF", "GRINCH", "SCROOGED", "GREMLINS"]
+    },
+    {
+      "name": "THINGS ON A TREE",
+      "difficulty": 3,
+      "items": ["STAR", "TINSEL", "LIGHTS", "ANGEL"]
+    },
+    {
+      "name": "WRAP ___",
+      "difficulty": 4,
+      "items": ["PARTY", "GIFT", "PLASTIC", "UNDER"]
+    }
+  ]
+}

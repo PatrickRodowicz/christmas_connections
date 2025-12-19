@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "WINTER CLOTHING",
+      "difficulty": 1,
+      "items": ["SCARF", "MITTENS", "BEANIE", "EARMUFFS"]
+    },
+    {
+      "name": "HOLIDAY DRINKS",
+      "difficulty": 2,
+      "items": ["EGGNOG", "CIDER", "COCOA", "MULLED WINE"]
+    },
+    {
+      "name": "SNOWMAN PARTS",
+      "difficulty": 3,
+      "items": ["CARROT", "COAL", "BUTTONS", "STICKS"]
+    },
+    {
+      "name": "___ BELL",
+      "difficulty": 4,
+      "items": ["JINGLE", "TACO", "DOOR", "DUMB"]
+    }
+  ]
+}

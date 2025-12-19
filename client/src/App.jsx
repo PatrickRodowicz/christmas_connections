@@ -15,17 +15,21 @@ function App() {
   const [gameOver, setGameOver] = useState(false)
   const [message, setMessage] = useState('')
   const [shaking, setShaking] = useState(false)
+  const [puzzleIndex, setPuzzleIndex] = useState(1)
+  const [totalPuzzles, setTotalPuzzles] = useState(1)
 
   useEffect(() => {
-    fetchPuzzle()
+    fetchPuzzle(1)
   }, [])
 
-  const fetchPuzzle = async () => {
+  const fetchPuzzle = async (index) => {
     try {
-      const response = await fetch('/api/puzzle')
+      const response = await fetch(`/api/puzzle/${index}`)
       const data = await response.json()
       setItems(data.items)
       setGroups(data.groups)
+      setPuzzleIndex(data.puzzleIndex)
+      setTotalPuzzles(data.totalPuzzles)
       setSolvedGroups([])
       setSelected([])
       setLives(4)
@@ -34,6 +38,16 @@ function App() {
     } catch (error) {
       console.error('Failed to fetch puzzle:', error)
     }
+  }
+
+  const handleNextPuzzle = () => {
+    if (puzzleIndex < totalPuzzles) {
+      fetchPuzzle(puzzleIndex + 1)
+    }
+  }
+
+  const handlePlayAgain = () => {
+    fetchPuzzle(puzzleIndex)
   }
 
   const handleItemClick = (item) => {
@@ -169,9 +183,16 @@ function App() {
       </div>
 
       {gameOver && (
-        <button className="new-game" onClick={fetchPuzzle}>
-          Play Again
-        </button>
+        <div className="game-over-buttons">
+          <button className="new-game" onClick={handlePlayAgain}>
+            Play Again
+          </button>
+          {puzzleIndex < totalPuzzles && (
+            <button className="next-puzzle" onClick={handleNextPuzzle}>
+              Next Puzzle
+            </button>
+          )}
+        </div>
       )}
     </div>
   )
