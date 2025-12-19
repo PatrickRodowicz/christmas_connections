@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "THINGS THAT ARE RED",
+      "difficulty": 1,
+      "items": ["APPLE", "FIRE TRUCK", "STOP SIGN", "TOMATO"]
+    },
+    {
+      "name": "MUSICAL INSTRUMENTS",
+      "difficulty": 2,
+      "items": ["PIANO", "GUITAR", "DRUMS", "VIOLIN"]
+    },
+    {
+      "name": "TYPES OF BREAD",
+      "difficulty": 3,
+      "items": ["SOURDOUGH", "RYE", "BAGUETTE", "CIABATTA"]
+    },
+    {
+      "name": "_____ KING",
+      "difficulty": 4,
+      "items": ["BURGER", "LION", "DRAG", "STEPHEN"]
+    }
+  ]
+}
