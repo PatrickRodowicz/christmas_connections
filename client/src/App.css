@@ -41,16 +41,6 @@ h1 {
   margin-bottom: 8px;
 }
 
-.grid.shake {
-  animation: shake 0.5s ease-in-out;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
-
 /* Item */
 .item {
   aspect-ratio: 1.5;
@@ -77,6 +67,18 @@ h1 {
 .item.selected {
   background-color: #5a594e;
   color: #fff;
+}
+
+.item.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
 }
 
 /* Transitioning Tiles */
@@ -164,15 +166,33 @@ h1 {
 }
 
 /* Message */
-.message {
-  font-size: 1rem;
+.message.game-over {
+  font-size: 1.25rem;
   font-weight: 600;
   margin: 16px 0;
   color: #5a594e;
 }
 
-.message.game-over {
-  font-size: 1.25rem;
+/* One Away Toast */
+.one-away-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000;
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 100;
+}
+
+.one-away-toast.visible {
+  opacity: 1;
 }
 
 /* Buttons */

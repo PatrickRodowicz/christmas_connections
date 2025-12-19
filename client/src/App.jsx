@@ -15,7 +15,8 @@ function App() {
   const [lives, setLives] = useState(4)
   const [gameOver, setGameOver] = useState(false)
   const [message, setMessage] = useState('')
-  const [shaking, setShaking] = useState(false)
+  const [shakingItems, setShakingItems] = useState([])
+  const [showOneAway, setShowOneAway] = useState(false)
   const [puzzleIndex, setPuzzleIndex] = useState(1)
   const [totalPuzzles, setTotalPuzzles] = useState(1)
 
@@ -94,13 +95,13 @@ function App() {
       })
       const maxCount = Math.max(...Object.values(groupCounts))
 
-      setShaking(true)
-      setTimeout(() => setShaking(false), 500)
+      // Shake only selected items
+      setShakingItems(selected.map(s => s.text))
+      setTimeout(() => setShakingItems([]), 500)
 
       if (maxCount === 3) {
-        setMessage('One away...')
-      } else {
-        setMessage('Incorrect')
+        setShowOneAway(true)
+        setTimeout(() => setShowOneAway(false), 1500)
       }
 
       const newLives = lives - 1
@@ -168,13 +169,17 @@ function App() {
               items={items}
               selected={selected}
               onItemClick={handleItemClick}
-              shaking={shaking}
+              shakingItems={shakingItems}
             />
           )}
         </div>
       </LayoutGroup>
 
-      {message && <p className={`message ${gameOver ? 'game-over' : ''}`}>{message}</p>}
+      {gameOver && message && <p className="message game-over">{message}</p>}
+
+      <div className={`one-away-toast ${showOneAway ? 'visible' : ''}`}>
+        One away...
+      </div>
 
       <Lives lives={lives} />
 
