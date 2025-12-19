@@ -1,8 +1,12 @@
+import { motion } from 'framer-motion'
 import Item from './Item'
 
 function Grid({ items, selected, onItemClick, shaking }) {
   return (
-    <div className={`grid ${shaking ? 'shake' : ''}`}>
+    <motion.div
+      className={`grid ${shaking ? 'shake' : ''}`}
+      layout
+    >
       {items.map((item) => (
         <Item
           key={item.text}
@@ -11,7 +15,7 @@ function Grid({ items, selected, onItemClick, shaking }) {
           onClick={() => onItemClick(item)}
         />
       ))}
-    </div>
+    </motion.div>
   )
 }
 

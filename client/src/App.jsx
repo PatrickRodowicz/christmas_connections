@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { LayoutGroup, AnimatePresence } from 'framer-motion'
 import Grid from './components/Grid'
 import SolvedGroup from './components/SolvedGroup'
+import TransitioningGroup from './components/TransitioningGroup'
 import Lives from './components/Lives'
 
 function App() {
@@ -8,6 +10,7 @@ function App() {
   const [groups, setGroups] = useState([])
   const [selected, setSelected] = useState([])
   const [solvedGroups, setSolvedGroups] = useState([])
+  const [transitioningGroup, setTransitioningGroup] = useState(null)
   const [lives, setLives] = useState(4)
   const [gameOver, setGameOver] = useState(false)
   const [message, setMessage] = useState('')
@@ -34,7 +37,7 @@ function App() {
   }
 
   const handleItemClick = (item) => {
-    if (gameOver) return
+    if (gameOver || transitioningGroup) return
 
     if (selected.find(s => s.text === item.text)) {
       setSelected(selected.filter(s => s.text !== item.text))
@@ -51,15 +54,11 @@ function App() {
 
     if (allMatch) {
       const solvedGroup = groups.find(g => g.name === groupId)
-      setSolvedGroups([...solvedGroups, solvedGroup].sort((a, b) => a.difficulty - b.difficulty))
+      // Start the transition animation
+      setTransitioningGroup(solvedGroup)
       setItems(items.filter(item => item.groupId !== groupId))
       setSelected([])
       setMessage('')
-
-      if (solvedGroups.length === 3) {
-        setGameOver(true)
-        setMessage('You won!')
-      }
     } else {
       // Check how many are correct
       const groupCounts = {}
@@ -83,9 +82,10 @@ function App() {
       if (newLives === 0) {
         setGameOver(true)
         setMessage('Game over!')
-        // Reveal remaining groups
+        // Reveal remaining groups (sorted by difficulty, appended after already-solved)
         const remaining = groups.filter(g => !solvedGroups.find(s => s.name === g.name))
-        setSolvedGroups([...solvedGroups, ...remaining].sort((a, b) => a.difficulty - b.difficulty))
+        remaining.sort((a, b) => a.difficulty - b.difficulty)
+        setSolvedGroups([...solvedGroups, ...remaining])
         setItems([])
       }
 
@@ -106,32 +106,54 @@ function App() {
     setSelected([])
   }
 
+  const handleTransitionComplete = () => {
+    if (transitioningGroup) {
+      setSolvedGroups(prev => [...prev, transitioningGroup])
+      setTransitioningGroup(null)
+
+      // Check win condition after adding the solved group
+      if (solvedGroups.length === 3) {
+        setGameOver(true)
+        setMessage('You won!')
+      }
+    }
+  }
+
   return (
     <div className="app">
       <h1>Connections</h1>
       <p className="subtitle">Create four groups of four!</p>
 
-      <div className="game-container">
-        {solvedGroups.map(group => (
-          <SolvedGroup key={group.name} group={group} />
-        ))}
+      <LayoutGroup>
+        <div className="game-container">
+          {solvedGroups.map(group => (
+            <SolvedGroup key={group.name} group={group} />
+          ))}
 
-        {items.length > 0 && (
-          <Grid
-            items={items}
-            selected={selected}
-            onItemClick={handleItemClick}
-            shaking={shaking}
-          />
-        )}
-      </div>
+          {transitioningGroup && (
+            <TransitioningGroup
+              group={transitioningGroup}
+              onComplete={handleTransitionComplete}
+            />
+          )}
+
+          {items.length > 0 && (
+            <Grid
+              items={items}
+              selected={selected}
+              onItemClick={handleItemClick}
+              shaking={shaking}
+            />
+          )}
+        </div>
+      </LayoutGroup>
 
       {message && <p className={`message ${gameOver ? 'game-over' : ''}`}>{message}</p>}
 
       <Lives lives={lives} />
 
       <div className="buttons">
-        <button onClick={handleShuffle} disabled={gameOver}>
+        <button onClick={handleShuffle} disabled={gameOver || transitioningGroup}>
           Shuffle
         </button>
         <button onClick={handleDeselectAll} disabled={selected.length === 0 || gameOver}>
@@ -139,7 +161,7 @@ function App() {
         </button>
         <button
           onClick={handleSubmit}
-          disabled={selected.length !== 4 || gameOver}
+          disabled={selected.length !== 4 || gameOver || transitioningGroup}
           className="submit"
         >
           Submit

@@ -79,6 +79,27 @@ h1 {
   color: #fff;
 }
 
+/* Transitioning Tiles */
+.transitioning-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.transitioning-tile {
+  aspect-ratio: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 8px;
+  color: #000;
+}
+
 /* Solved Group */
 .solved-group {
   border-radius: 8px;
@@ -213,6 +234,11 @@ button {
   }
 
   .item {
+    font-size: 0.7rem;
+    padding: 4px;
+  }
+
+  .transitioning-tile {
     font-size: 0.7rem;
     padding: 4px;
   }
