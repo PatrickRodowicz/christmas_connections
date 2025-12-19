@@ -173,8 +173,8 @@ h1 {
   color: #5a594e;
 }
 
-/* One Away Toast */
-.one-away-toast {
+/* Toast */
+.toast {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -191,7 +191,7 @@ h1 {
   z-index: 100;
 }
 
-.one-away-toast.visible {
+.toast.visible {
   opacity: 1;
 }
 

@@ -17,6 +17,8 @@ function App() {
   const [message, setMessage] = useState('')
   const [shakingItems, setShakingItems] = useState([])
   const [showOneAway, setShowOneAway] = useState(false)
+  const [showAlreadyGuessed, setShowAlreadyGuessed] = useState(false)
+  const [previousGuesses, setPreviousGuesses] = useState([])
   const [puzzleIndex, setPuzzleIndex] = useState(1)
   const [totalPuzzles, setTotalPuzzles] = useState(1)
 
@@ -46,6 +48,7 @@ function App() {
       setSelected([])
       setRevealQueue([])
       setTransitioningGroup(null)
+      setPreviousGuesses([])
       setLives(4)
       setGameOver(false)
       setMessage('')
@@ -76,6 +79,19 @@ function App() {
 
   const handleSubmit = () => {
     if (selected.length !== 4 || gameOver) return
+
+    // Check if this guess was already made
+    const currentGuess = selected.map(s => s.text).sort().join(',')
+    const alreadyGuessed = previousGuesses.includes(currentGuess)
+
+    if (alreadyGuessed) {
+      setShowAlreadyGuessed(true)
+      setTimeout(() => setShowAlreadyGuessed(false), 1500)
+      return
+    }
+
+    // Add to previous guesses
+    setPreviousGuesses(prev => [...prev, currentGuess])
 
     const groupId = selected[0].groupId
     const allMatch = selected.every(item => item.groupId === groupId)
@@ -177,8 +193,12 @@ function App() {
 
       {gameOver && message && <p className="message game-over">{message}</p>}
 
-      <div className={`one-away-toast ${showOneAway ? 'visible' : ''}`}>
+      <div className={`toast ${showOneAway ? 'visible' : ''}`}>
         One away...
+      </div>
+
+      <div className={`toast ${showAlreadyGuessed ? 'visible' : ''}`}>
+        Already guessed!
       </div>
 
       <Lives lives={lives} />
