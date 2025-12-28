@@ -1,24 +1,24 @@
 {
   "groups": [
     {
-      "name": "SANTA'S REINDEER",
+      "name": "MUG CHOCOLATE",
       "difficulty": 1,
-      "items": ["DASHER", "DANCER", "PRANCER", "VIXEN"]
+      "items": ["MALTEASERS", "BUTTONS", "REVELS", "AEROBALLS"]
     },
     {
-      "name": "CHRISTMAS MOVIES",
+      "name": "VICTORIA SPECIALS",
       "difficulty": 2,
-      "items": ["ELF", "GRINCH", "SCROOGED", "GREMLINS"]
+      "items": ["QUICHE", "LASAGNE", "RAGU", "CAULIFLOWER CHEESE"]
     },
     {
-      "name": "THINGS ON A TREE",
+      "name": "THINGS THAT CO",
       "difficulty": 3,
-      "items": ["STAR", "TINSEL", "LIGHTS", "ANGEL"]
+      "items": ["BEARS", "SNAKES", "MISO&TRIPP", "PAT&VICTORIA"]
     },
     {
-      "name": "WRAP ___",
+      "name": "PAT ___",
       "difficulty": 4,
-      "items": ["PARTY", "GIFT", "PLASTIC", "UNDER"]
+      "items": ["SNACHOS", "FAJITAS", "CURRY", "TACOS"]
     }
   ]
 }

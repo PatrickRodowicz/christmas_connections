@@ -1,24 +1,24 @@
 {
   "groups": [
     {
-      "name": "WINTER CLOTHING",
+      "name": "FAMILY OF FOUR",
       "difficulty": 1,
-      "items": ["SCARF", "MITTENS", "BEANIE", "EARMUFFS"]
+      "items": ["TRIPP", "MISO", "VICTORIA", "PAT"]
     },
     {
-      "name": "HOLIDAY DRINKS",
+      "name": "BEARS THAT AREN'T BEARS",
       "difficulty": 2,
-      "items": ["EGGNOG", "CIDER", "COCOA", "MULLED WINE"]
+      "items": ["CO", "KOALA", "SNUGSY", "SLEEPY"]
     },
     {
-      "name": "SNOWMAN PARTS",
+      "name": "PLACES WE KEEP ENDING UP",
       "difficulty": 3,
-      "items": ["CARROT", "COAL", "BUTTONS", "STICKS"]
+      "items": ["FARMACIA", "AVIGNON HOSPITAL", "PLAYA DEL CARMEN", "THE VETS"]
     },
     {
-      "name": "___ BELL",
+      "name": "VICTORIA CAN'T DISAMBIGUATE THE EMOJIS",
       "difficulty": 4,
-      "items": ["JINGLE", "TACO", "DOOR", "DUMB"]
+      "items": ["SHRIMP", "SQUID", "SNAKE", "WORM"]
     }
   ]
 }

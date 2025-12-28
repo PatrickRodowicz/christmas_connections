@@ -1,24 +1,24 @@
 {
   "groups": [
     {
-      "name": "THINGS THAT ARE RED",
+      "name": "CONVERSATIONS IN EMOJIS",
       "difficulty": 1,
-      "items": ["APPLE", "FIRE TRUCK", "STOP SIGN", "TOMATO"]
+      "items": ["DUCK", "LAVA", "GRASSHOPPER", "ELEPHANT" ]
     },
     {
-      "name": "MUSICAL INSTRUMENTS",
+      "name": "GARDEN FEATURES",
       "difficulty": 2,
-      "items": ["PIANO", "GUITAR", "DRUMS", "VIOLIN"]
+      "items": ["LAKE", "DEER", "PEAR TREE", "GOOSEDUCK"]
     },
     {
-      "name": "TYPES OF BREAD",
+      "name": "INDICATIONS OF DANGER",
       "difficulty": 3,
-      "items": ["SOURDOUGH", "RYE", "BAGUETTE", "CIABATTA"]
+      "items": ["BORK", "CRAB", "LOBSTER", "ALARM"]
     },
     {
-      "name": "_____ KING",
+      "name": "KEEP IT IN THE MAN CAVE",
       "difficulty": 4,
-      "items": ["BURGER", "LION", "DRAG", "STEPHEN"]
+      "items": ["VR", "VIBE CODING", "TRINKET", "MONITOR"]
     }
   ]
 }
